@@ -10,6 +10,7 @@ import { MdErrorOutline } from 'react-icons/md';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createIssueSchema } from '@/app/validationSchema';
+import ErrorMessage from '@/components/ErrorMessage';
 
 type IssueProps = z.infer<typeof createIssueSchema>;
 
@@ -50,13 +51,13 @@ const NewIssue = () => {
         onSubmit={handleSubmit((data) => createIssue(data))}
         >
         <TextField.Root placeholder='Title' {...register('title')}/>
-        {errors?.title && <Text as='p' color='red'>{errors.title.message}</Text>}
+        {errors?.title && <ErrorMessage>{errors.title.message}</ErrorMessage>}
         <Controller
           name='description'
           control={control}
           render={({ field }) => <SimpleMDE placeholder="Description" {...field} />}
         />
-        {errors?.description && <Text as='p' color='red'>{errors.description.message}</Text>}
+        {errors?.description && <ErrorMessage>{errors.description.message}</ErrorMessage>}
         <Button className='hover:cursor-pointer'>Submit</Button>
       </form>
     </div>
