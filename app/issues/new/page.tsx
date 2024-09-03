@@ -11,12 +11,13 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createIssueSchema } from '@/app/validationSchema';
 import ErrorMessage from '@/components/ErrorMessage';
+import Spinner from '@/components/Spinner';
 
 type IssueProps = z.infer<typeof createIssueSchema>;
 
 const NewIssue = () => {
   const router = useRouter();
-  const { register, control, handleSubmit, formState: { errors } } = useForm<IssueProps>({
+  const { register, control, handleSubmit,  formState: { errors, isSubmitting } } = useForm<IssueProps>({
     resolver: zodResolver(createIssueSchema),
   });
   const [error, setError] = useState('');
@@ -58,7 +59,10 @@ const NewIssue = () => {
           render={({ field }) => <SimpleMDE placeholder="Description" {...field} />}
         />
         {errors?.description && <ErrorMessage>{errors.description.message}</ErrorMessage>}
-        <Button className='hover:cursor-pointer'>Submit</Button>
+        <Button disabled={isSubmitting} className='hover:cursor-pointer'>
+          Submit
+          {isSubmitting && <Spinner />}
+        </Button>
       </form>
     </div>
   )
