@@ -1,8 +1,9 @@
 "use client";
-import { Button, Table } from '@radix-ui/themes';
+import { Button, Table, TextField } from '@radix-ui/themes';
 import axios from 'axios';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
+import { BiSearch } from 'react-icons/bi';
 
 interface IssueProps {
   id: number,
@@ -15,6 +16,7 @@ interface IssueProps {
 
 const Issues = () => {
   const [issues, setIssues] = useState<IssueProps[]>([]);
+  const [filteredIssues, setFilteredIssues] = useState<IssueProps[]>([]);
 
   useEffect(() => {
     const fetchIssues = async () => {
@@ -28,6 +30,16 @@ const Issues = () => {
     fetchIssues();
   }, []);
 
+  const searchIssues = (input: string) => {
+    if (input) {
+      const filterIssues = issues.filter((issue) => issue.title.includes(input) || issue.description.includes(input) || issue.developerName?.includes(input))
+
+      setFilteredIssues(filterIssues);
+    } else {
+      setFilteredIssues([]);
+    }
+  }
+
   const getIssueDate = (e: string) => {
     const date = new Date(e);
 
@@ -40,8 +52,14 @@ const Issues = () => {
   }
 
   return (
-    <div className='flex flex-col'>
-      <div className='self-end mr-7'>
+    <div className='flex flex-col gap-4'>
+      <div className='flex gap-4 self-end mr-7'>
+        <TextField.Root placeholder="Search the issue" onChange={(e) => searchIssues(e.target.value)}>
+          <TextField.Slot>
+            <BiSearch height="16" width="16" />
+          </TextField.Slot>
+        </TextField.Root>
+
         <Button>
           <Link href='/issues/new'>New Issue</Link>
         </Button>
@@ -49,7 +67,7 @@ const Issues = () => {
 
       <Table.Root>
         <Table.Header>
-          <Table.Row className='text-nowrap'>
+          <Table.Row className='text-nowrap uppercase'>
             <Table.ColumnHeaderCell>Id</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
@@ -60,7 +78,7 @@ const Issues = () => {
         </Table.Header>
         
         <Table.Body>
-          {issues.map((issue) => (
+          {(filteredIssues.length > 0 ? filteredIssues : issues).map((issue) => (
             <Table.Row key={issue.id}>
                 <Table.Cell>{issue.id}</Table.Cell>
                 <Table.Cell>{issue.title}</Table.Cell>
