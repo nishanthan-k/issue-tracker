@@ -1,5 +1,5 @@
 "use client";
-import { Button, Callout, Select, Text, TextField } from '@radix-ui/themes';
+import { Button, Callout, Select, TextField } from '@radix-ui/themes';
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { Controller, useForm } from 'react-hook-form';
@@ -23,7 +23,7 @@ const NewIssue = () => {
   });
   const [error, setError] = useState('');
   const [developers, setDevelopers] = useState<DeveloperProps[]>([]);
-  const [selectedDeveloper, setSelectedDeveloper] = useState('');
+  const [selectedDeveloper, setSelectedDeveloper] = useState('0');
 
   useEffect(() => {
     try {
@@ -43,8 +43,8 @@ const NewIssue = () => {
 
   const createIssue = async (data: IssueProps) => {
     try {
-      const reqJson = selectedDeveloper ? {...data, developerId: parseInt(selectedDeveloper)} : data;
-      const resp = await axios.post('/api/issues', reqJson);
+      const reqJson = selectedDeveloper !== '0' ? {...data, developerId: parseInt(selectedDeveloper)} : data;
+      const resp = await axios.post('/api/issues/new', reqJson);
       
       if (resp.status === 201) {
         router.push('/issues');
@@ -86,11 +86,11 @@ const NewIssue = () => {
         
         <div className='flex items-center gap-2'>
           <label>Assign Developer: </label>
-          <Select.Root onValueChange={(id: string) => updateSelectedDeveloper(id)}>
+          <Select.Root defaultValue={selectedDeveloper} onValueChange={(id: string) => updateSelectedDeveloper(id)}>
             <Select.Trigger />
             <Select.Content>
               <Select.Group>
-                <Select.Label>Select Developer</Select.Label>
+                <Select.Item value='0'>Select Developer</Select.Item>
                 {developers.map((developer) => (
                   <Select.Item key={developer.id} value={developer.id.toString()} >{developer.name}</Select.Item>
                 ))}

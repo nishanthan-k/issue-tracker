@@ -4,9 +4,9 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <Button>
+      {/* <Button>
         <Link href='/issues/new'>New Issue</Link>
-      </Button>
+      </Button> */}
     </main>
   );
 }
