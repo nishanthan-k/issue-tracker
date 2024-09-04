@@ -1,19 +1,20 @@
 "use client";
-import { Button, Callout, Text, TextField } from '@radix-ui/themes';
+import { Button, Callout, Select, Text, TextField } from '@radix-ui/themes';
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { Controller, useForm } from 'react-hook-form';
 import axios from "axios";
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdErrorOutline } from 'react-icons/md';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createIssueSchema } from '@/app/validationSchema';
+import { createIssueSchema, developerSchema } from '@/app/validationSchema';
 import ErrorMessage from '@/components/ErrorMessage';
 import Spinner from '@/components/Spinner';
 
 type IssueProps = z.infer<typeof createIssueSchema>;
+type DeveloperProps = z.infer<typeof developerSchema>;
 
 const NewIssue = () => {
   const router = useRouter();
@@ -21,18 +22,42 @@ const NewIssue = () => {
     resolver: zodResolver(createIssueSchema),
   });
   const [error, setError] = useState('');
+  const [developers, setDevelopers] = useState<DeveloperProps[]>([]);
+  const [selectedDeveloper, setSelectedDeveloper] = useState('');
+
+  useEffect(() => {
+    try {
+        const fetchDevelopers = async () => {
+          const resp = await axios.get('/api/developers');
+
+          if (resp.status === 200) {
+            console.log(resp);
+            setDevelopers(resp.data);
+          }
+        }
+
+        fetchDevelopers();
+      } catch (error) {
+        console.log(error);
+      }
+  }, []);
 
   const createIssue = async (data: IssueProps) => {
     try {
-      const resp = await axios.post('/api/issues', data);
-
+      const reqJson = selectedDeveloper ? {...data, developerId: parseInt(selectedDeveloper)} : data;
+      const resp = await axios.post('/api/issues', reqJson);
+      
       if (resp.status === 201) {
-        router.push('/');
+        router.push('/issues');
       }
     } catch (error) {
       console.log(error);
       setError('Error occured!');
     }
+  }
+
+  const updateSelectedDeveloper = (id: string) => {
+    setSelectedDeveloper(id);
   }
 
   return (
@@ -59,6 +84,22 @@ const NewIssue = () => {
           render={({ field }) => <SimpleMDE placeholder="Description" {...field} />}
         />
         {errors?.description && <ErrorMessage>{errors.description.message}</ErrorMessage>}
+        
+        <div className='flex items-center gap-2'>
+          <label>Assign Developer: </label>
+          <Select.Root onValueChange={(id: string) => updateSelectedDeveloper(id)}>
+            <Select.Trigger />
+            <Select.Content>
+              <Select.Group>
+                <Select.Label>Select Developer</Select.Label>
+                {developers.map((developer) => (
+                  <Select.Item key={developer.id} value={developer.id.toString()} >{developer.name}</Select.Item>
+                ))}
+              </Select.Group>
+            </Select.Content>
+          </Select.Root>
+        </div>
+
         <Button disabled={isSubmitting} className='hover:cursor-pointer'>
           Submit
           {isSubmitting && <Spinner />}

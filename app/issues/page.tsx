@@ -10,6 +10,7 @@ interface IssueProps {
   description: string,
   status: string,
   createdAt: string,
+  developerName?: string,
 }
 
 const Issues = () => {
@@ -21,7 +22,6 @@ const Issues = () => {
 
       if (resp.status === 200) {
         setIssues(resp.data);
-        console.log(resp)
       }
     }
 
@@ -34,6 +34,11 @@ const Issues = () => {
     return `${date.getDay().toString().padStart(2, '0')}-${date.getMonth().toString().padStart(2, '0')}-${date.getFullYear()}`;
   }
 
+  const formatDesc = (a: string, count: number = 10) => {
+    let text = a.split(" ").splice(0, count);
+    return text.length >= 15 ? text.join(' ')+'...' : text.join(' ');
+  }
+
   return (
     <div className='flex flex-col'>
       <div className='self-end mr-7'>
@@ -44,10 +49,11 @@ const Issues = () => {
 
       <Table.Root>
         <Table.Header>
-          <Table.Row>
+          <Table.Row className='text-nowrap'>
             <Table.ColumnHeaderCell>Id</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Assigned To</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Created on</Table.ColumnHeaderCell>
           </Table.Row>
@@ -58,9 +64,10 @@ const Issues = () => {
             <Table.Row key={issue.id}>
                 <Table.Cell>{issue.id}</Table.Cell>
                 <Table.Cell>{issue.title}</Table.Cell>
-                <Table.Cell>{issue.description}</Table.Cell>
+                <Table.Cell width="300px">{formatDesc(issue.description)}</Table.Cell>
+                <Table.Cell className='text-nowrap'>{issue.developerName || 'Not Assigned'}</Table.Cell>
                 <Table.Cell>{issue.status}</Table.Cell>
-                <Table.Cell>{getIssueDate(issue.createdAt)}</Table.Cell>
+                <Table.Cell className='text-nowrap'>{getIssueDate(issue.createdAt)}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
