@@ -31,7 +31,6 @@ const NewIssue = () => {
           const resp = await axios.get('/api/developers');
 
           if (resp.status === 200) {
-            console.log(resp);
             setDevelopers(resp.data);
           }
         }

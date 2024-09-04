@@ -68,24 +68,36 @@ const Issues = () => {
       <Table.Root>
         <Table.Header>
           <Table.Row className='text-nowrap uppercase'>
-            <Table.ColumnHeaderCell>Id</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Assigned To</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Created on</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell justify="center" >Id</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell justify="center" >Issue</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell justify="center" >Description</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell justify="center" >Assigned To</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell justify="center" >Status</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell justify="center" >Created on</Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
         
         <Table.Body>
           {(filteredIssues.length > 0 ? filteredIssues : issues).map((issue) => (
             <Table.Row key={issue.id}>
-                <Table.Cell>{issue.id}</Table.Cell>
-                <Table.Cell>{issue.title}</Table.Cell>
-                <Table.Cell width="300px">{formatDesc(issue.description)}</Table.Cell>
-                <Table.Cell className='text-nowrap'>{issue.developerName || 'Not Assigned'}</Table.Cell>
-                <Table.Cell>{issue.status}</Table.Cell>
-                <Table.Cell className='text-nowrap'>{getIssueDate(issue.createdAt)}</Table.Cell>
+                <Table.Cell justify="center">
+                  {issue.id}
+                </Table.Cell>
+                <Table.Cell justify="center">
+                  {issue.title}
+                </Table.Cell>
+                <Table.Cell justify="center" width="300px">
+                  {formatDesc(issue.description)
+                }</Table.Cell>
+                <Table.Cell justify="center" className='text-nowrap'>
+                  {issue.developerName || 'Not Assigned'
+                }</Table.Cell>
+                <Table.Cell justify="center">
+                  {issue.status}
+                </Table.Cell>
+                <Table.Cell justify="center" className='text-nowrap'>
+                  {getIssueDate(issue.createdAt)
+                }</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
