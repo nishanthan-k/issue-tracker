@@ -48,7 +48,7 @@ const Issues = () => {
 
   const formatDesc = (a: string, count: number = 10) => {
     let text = a.split(" ").splice(0, count);
-    return text.length >= 15 ? text.join(' ')+'...' : text.join(' ');
+    return text.length >= count ? text.join(' ')+'...' : text.join(' ');
   }
 
   return (
