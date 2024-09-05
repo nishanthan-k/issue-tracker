@@ -10,3 +10,19 @@ export const developerSchema = z.object({
   name: z.string(),
   issues: z.array(z.number()),
 })
+
+export const issueSchema = z.object({
+  id: z.string().optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  status: z.string().optional(),
+  createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
+  developerId: z.string().optional(),
+})
+
+export enum Status {
+  OPEN,
+  IN_PROGRESS,
+  CLOSED,
+}

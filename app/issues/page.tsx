@@ -2,6 +2,7 @@
 import { Button, Table, TextField } from '@radix-ui/themes';
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { BiSearch } from 'react-icons/bi';
 
@@ -15,6 +16,7 @@ interface IssueProps {
 }
 
 const Issues = () => {
+  const router = useRouter();
   const [issues, setIssues] = useState<IssueProps[]>([]);
   const [filteredIssues, setFilteredIssues] = useState<IssueProps[]>([]);
 
@@ -79,25 +81,29 @@ const Issues = () => {
         
         <Table.Body>
           {(filteredIssues.length > 0 ? filteredIssues : issues).map((issue) => (
-            <Table.Row key={issue.id}>
-                <Table.Cell justify="center">
-                  {issue.id}
-                </Table.Cell>
-                <Table.Cell justify="center">
-                  {issue.title}
-                </Table.Cell>
-                <Table.Cell justify="center" width="300px">
-                  {formatDesc(issue.description)
-                }</Table.Cell>
-                <Table.Cell justify="center" className='text-nowrap'>
-                  {issue.developerName || 'Not Assigned'
-                }</Table.Cell>
-                <Table.Cell justify="center">
-                  {issue.status}
-                </Table.Cell>
-                <Table.Cell justify="center" className='text-nowrap'>
-                  {getIssueDate(issue.createdAt)
-                }</Table.Cell>
+            <Table.Row 
+              key={issue.id}
+              onClick={() => router.push(`/issues/${issue.id}`)}
+              className='hover:cursor-pointer hover:bg-gray-100'
+            >
+              <Table.Cell justify="center">
+                {issue.id}
+              </Table.Cell>
+              <Table.Cell justify="center">
+                {issue.title}
+              </Table.Cell>
+              <Table.Cell justify="center" width="300px">
+                {formatDesc(issue.description)
+              }</Table.Cell>
+              <Table.Cell justify="center" className='text-nowrap'>
+                {issue.developerName || 'Not Assigned'
+              }</Table.Cell>
+              <Table.Cell justify="center">
+                {issue.status}
+              </Table.Cell>
+              <Table.Cell justify="center" className='text-nowrap'>
+                {getIssueDate(issue.createdAt)
+              }</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

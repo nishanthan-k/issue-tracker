@@ -35,6 +35,8 @@ model Developer {
 enum Status {
   OPEN
   IN_PROGRESS
+  ON_REVIEW
+  ON_REWORK
   CLOSED
 
   @@schema("issue-tracker")

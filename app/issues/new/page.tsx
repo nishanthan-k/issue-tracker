@@ -9,21 +9,48 @@ import { useEffect, useState } from 'react';
 import { MdErrorOutline } from 'react-icons/md';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createIssueSchema, developerSchema } from '@/app/validationSchema';
+import { createIssueSchema, developerSchema, issueSchema } from '@/app/validationSchema';
 import ErrorMessage from '@/components/ErrorMessage';
 import Spinner from '@/components/Spinner';
+import Form from '@/components/Form';
+import { Check } from '@/components/Check';
 
-type IssueProps = z.infer<typeof createIssueSchema>;
+type IssueProps = z.infer<typeof issueSchema>;
 type DeveloperProps = z.infer<typeof developerSchema>;
 
-const NewIssue = () => {
+
+
+const IssueForm = (props: IssueProps) => {
+  const { id, title, description, status, createdAt, updatedAt, developerId } = props;
   const router = useRouter();
-  const { register, control, handleSubmit,  formState: { errors, isSubmitting } } = useForm<IssueProps>({
+  const initialValues = {
+    id: id?.toString() || '',
+    title: title || '',
+    description: description || '',
+    status: status || '',
+    createdAt: createdAt || '',
+    updatedAt: updatedAt || '',
+    developerId: developerId?.toString() || '0',
+  };
+
+  const { register, control, handleSubmit, formState: { errors, isSubmitting }, setValue } = useForm<IssueProps>({
     resolver: zodResolver(createIssueSchema),
+    defaultValues: initialValues,
   });
+
   const [error, setError] = useState('');
   const [developers, setDevelopers] = useState<DeveloperProps[]>([]);
-  const [selectedDeveloper, setSelectedDeveloper] = useState('0');
+  const [selectedDeveloper, setSelectedDeveloper] = useState<string>(initialValues.developerId || '0');
+
+  useEffect(() => {
+    setValue('id', id);
+    setValue('title', title);
+    setValue('description', description);
+    setValue('status', status);
+    setValue('createdAt', createdAt);
+    setValue('updatedAt', updatedAt);
+    setValue('developerId', developerId || '0');
+  }, [setValue, id, title, description, status, createdAt, updatedAt, developerId])
 
   useEffect(() => {
     try {
@@ -42,17 +69,18 @@ const NewIssue = () => {
   }, []);
 
   const createIssue = async (data: IssueProps) => {
-    try {
-      const reqJson = selectedDeveloper !== '0' ? {...data, developerId: parseInt(selectedDeveloper)} : data;
-      const resp = await axios.post('/api/issues/new', reqJson);
+    console.log('data',data)
+    // try {
+    //   const reqJson = selectedDeveloper !== '0' ? {...data, developerId: parseInt(selectedDeveloper)} : data;
+    //   const resp = await axios.post('/api/issues/new', reqJson);
       
-      if (resp.status === 201) {
-        router.push('/issues');
-      }
-    } catch (error) {
-      console.log(error);
-      setError('Error occured!');
-    }
+    //   if (resp.status === 201) {
+    //     router.push('/issues');
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   setError('Error occured!');
+    // }
   }
 
   const updateSelectedDeveloper = (id: string) => {
@@ -60,52 +88,12 @@ const NewIssue = () => {
   }
 
   return (
-    <div className='max-w-xl '>
-      {error && (
-        <Callout.Root color='red' className='mb-5'>
-          <Callout.Icon>
-            <MdErrorOutline />
-          </Callout.Icon>
-          <Callout.Text>
-            {error}
-          </Callout.Text>
-        </Callout.Root>
-      )}
-      <form 
-        className='space-y-3'
-        onSubmit={handleSubmit((data) => createIssue(data))}
-        >
-        <TextField.Root placeholder='Title' {...register('title')}/>
-        {errors?.title && <ErrorMessage>{errors.title.message}</ErrorMessage>}
-        <Controller
-          name='description'
-          control={control}
-          render={({ field }) => <SimpleMDE placeholder="Description" {...field} />}
-        />
-        {errors?.description && <ErrorMessage>{errors.description.message}</ErrorMessage>}
-        
-        <div className='flex items-center gap-2'>
-          <label>Assign Developer: </label>
-          <Select.Root defaultValue={selectedDeveloper} onValueChange={(id: string) => updateSelectedDeveloper(id)}>
-            <Select.Trigger />
-            <Select.Content>
-              <Select.Group>
-                <Select.Item value='0'>Select Developer</Select.Item>
-                {developers.map((developer) => (
-                  <Select.Item key={developer.id} value={developer.id.toString()} >{developer.name}</Select.Item>
-                ))}
-              </Select.Group>
-            </Select.Content>
-          </Select.Root>
-        </div>
-
-        <Button disabled={isSubmitting} className='hover:cursor-pointer'>
-          Submit
-          {isSubmitting && <Spinner />}
-        </Button>
-      </form>
-    </div>
+    <Check 
+      issueData={{title: '', description:''}}
+      apiUrl='/api/issues/new'
+      reDirectUrl='/issues'
+    />
   )
 }
 
-export default NewIssue;
+export default IssueForm;
