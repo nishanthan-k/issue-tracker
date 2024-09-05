@@ -99,7 +99,7 @@ const Issues = () => {
                 {issue.developerName || 'Not Assigned'
               }</Table.Cell>
               <Table.Cell justify="center">
-                {issue.status}
+                {issue.status.replace('_', ' ')}
               </Table.Cell>
               <Table.Cell justify="center" className='text-nowrap'>
                 {getIssueDate(issue.createdAt)

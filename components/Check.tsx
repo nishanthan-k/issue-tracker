@@ -82,7 +82,6 @@ export function Check(props: IssueDataProps) {
           })
       );
       
-      console.log('reqjson', reqJson)
       const resp = await axios.post(`${apiUrl}`, {...reqJson, id: id});
       
       if (resp.status === 201 || resp.status === 202) {
@@ -99,8 +98,6 @@ export function Check(props: IssueDataProps) {
     setValue('status', status || 'OPEN');
     setValue('developerId', developerId?.toString() || '0');
   }, [setValue, title, description, status]);
-  
-  console.log('dev', developerId)
 
   return (
     <section className='flex justify-center'>

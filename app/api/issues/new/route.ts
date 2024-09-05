@@ -17,6 +17,7 @@ export const POST = async (req: NextRequest) => {
         title: body.title, 
         description: body.description,
         developerId: body.developerId,
+        status: body.status,
       }
     })
     return NextResponse.json(newIssue, { status: 201 });
