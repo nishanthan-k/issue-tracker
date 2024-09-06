@@ -1,5 +1,6 @@
 "use client";
-import { Button, Table, TextField } from '@radix-ui/themes';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Button, TextField } from '@radix-ui/themes';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -12,6 +13,7 @@ interface IssueProps {
   description: string,
   status: string,
   createdAt: string,
+  updatedAt: string,
   developerName?: string,
 }
 
@@ -67,47 +69,51 @@ const Issues = () => {
         </Button>
       </div>
 
-      <Table.Root>
-        <Table.Header>
-          <Table.Row className='text-nowrap uppercase'>
-            <Table.ColumnHeaderCell justify="center" >Id</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell justify="center" >Issue</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell justify="center" >Description</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell justify="center" >Assigned To</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell justify="center" >Status</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell justify="center" >Created on</Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
+      <Table>
+        <TableHeader>
+          <TableRow className='text-nowrap uppercase'>
+            <TableHead className='tableHead'>Id</TableHead>
+            <TableHead className='tableHead'>Issue</TableHead>
+            <TableHead className='tableHead'>Description</TableHead>
+            <TableHead className='tableHead'>Assigned To</TableHead>
+            <TableHead className='tableHead'>Status</TableHead>
+            <TableHead className='tableHead'>Created on</TableHead>
+            <TableHead className='tableHead'>updated on</TableHead>
+          </TableRow>
+        </TableHeader>
         
-        <Table.Body>
+        <TableBody>
           {(filteredIssues.length > 0 ? filteredIssues : issues).map((issue) => (
-            <Table.Row 
+            <TableRow 
               key={issue.id}
               onClick={() => router.push(`/issues/${issue.id}`)}
               className='hover:cursor-pointer hover:bg-gray-100'
             >
-              <Table.Cell justify="center">
+              <TableCell >
                 {issue.id}
-              </Table.Cell>
-              <Table.Cell justify="center">
+              </TableCell>
+              <TableCell >
                 {issue.title}
-              </Table.Cell>
-              <Table.Cell justify="center" width="300px">
-                {formatDesc(issue.description)
-              }</Table.Cell>
-              <Table.Cell justify="center" className='text-nowrap'>
-                {issue.developerName || 'Not Assigned'
-              }</Table.Cell>
-              <Table.Cell justify="center">
+              </TableCell>
+              <TableCell  width="300px">
+                {formatDesc(issue.description)}
+              </TableCell>
+              <TableCell  className='text-nowrap'>
+                {issue.developerName || 'Not Assigned'}
+              </TableCell>
+              <TableCell >
                 {issue.status.replace('_', ' ')}
-              </Table.Cell>
-              <Table.Cell justify="center" className='text-nowrap'>
-                {getIssueDate(issue.createdAt)
-              }</Table.Cell>
-            </Table.Row>
+              </TableCell>
+              <TableCell  className='text-nowrap'>
+                {getIssueDate(issue.createdAt)}
+              </TableCell>
+              <TableCell  className='text-nowrap'>
+                {getIssueDate(issue.updatedAt)}
+              </TableCell>
+            </TableRow>
           ))}
-        </Table.Body>
-      </Table.Root> 
+        </TableBody>
+      </Table> 
     </div>
   )
 }

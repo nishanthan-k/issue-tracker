@@ -10,7 +10,12 @@ export const GET = async () => {
             name: true,
           }
         }
-      }
+      },
+      orderBy: [
+        {
+          createdAt: 'asc',
+        },
+      ]
     });
 
     const resp = issues.map((issue) => ({
