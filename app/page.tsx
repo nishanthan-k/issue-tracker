@@ -1,10 +1,13 @@
+import { StatusChart } from "@/components/StatusChart";
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      {/* <Button>
-        <Link href='/issues/new'>New Issue</Link>
-      </Button> */}
+      <section className="flex flex-col sm:flex-row">
+        <div className="w-1/3">
+          <StatusChart />
+        </div>
+      </section>
     </main>
   );
 }
