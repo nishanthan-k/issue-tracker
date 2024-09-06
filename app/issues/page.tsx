@@ -97,7 +97,7 @@ const Issues = () => {
               <TableRow 
                 key={issue.id}
                 onClick={() => router.push(`/issues/${issue.id}`)}
-                className='hover:cursor-pointer hover:bg-secondary text-center'
+                className='hover:cursor-pointer hover:bg-row-hover text-center'
               >
                 <TableCell className='px-2 ml-4' >
                   {issue.id}

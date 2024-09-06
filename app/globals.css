@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  /* :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -30,8 +30,9 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem
   }
+
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 0 0% 16%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -55,7 +56,129 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%
+  } */
+
+
+ /* customized on shandcn */
+/* :root  {
+  --background: 201 80% 95%;
+  --foreground: 201 5% 10%;
+  --card: 201 50% 93%;
+  --card-foreground: 201 5% 15%;
+  --popover: 201 80% 95%;
+  --popover-foreground: 201 95% 10%;
+  --primary: 201 90% 27.5%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 201 30% 90%;
+  --secondary-foreground: 0 0% 0%;
+  --muted: 163 30% 93%;
+  --muted-foreground: 201 5% 40%;
+  --accent: 163 30% 90%;
+  --accent-foreground: 201 5% 15%;
+  --destructive: 0 80% 50%;
+  --destructive-foreground: 201 5% 93%;
+  --border: 201 30% 82%;
+  --input: 201 30% 50%;
+  --ring: 201 90% 27.5%;
+  --radius: 0.5rem;
+  --chart-1: 173 58% 39%;
+  --chart-2: 12 76% 61%;
+  --chart-3: 43 74% 66%;
+  --chart-4: 197 37% 24%;
+  --chart-5: 27 87% 67%;
+}
+.dark  {
+  --background: 201 50% 10%;
+  --foreground: 201 5% 93%;
+  --card: 201 50% 10%;
+  --card-foreground: 201 5% 93%;
+  --popover: 201 50% 5%;
+  --popover-foreground: 201 5% 93%;
+  --primary: 201 90% 27.5%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 201 30% 20%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 163 30% 25%;
+  --muted-foreground: 201 5% 65%;
+  --accent: 163 30% 25%;
+  --accent-foreground: 201 5% 93%;
+  --destructive: 0 80% 50%;
+  --destructive-foreground: 201 5% 93%;
+  --border: 201 30% 50%;
+  --input: 201 30% 50%;
+  --ring: 201 90% 27.5%;
+  --radius: 0.5rem;
+  --chart-1: 220 70% 50%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%
+} */
+:root {
+  --background: 210 15% 98%; /* Clean and bright background */
+  --foreground: 210 10% 20%; /* Dark text for strong contrast */
+  --card: 210 10% 95%; /* Slightly tinted card background */
+  --card-foreground: 210 10% 15%; /* High contrast text on cards */
+  --popover: 210 10% 90%; /* Subtle popover background */
+  --popover-foreground: 210 10% 20%; /* Strong contrast text on popover */
+  --primary: 200 80% 50%; /* Vibrant blue for primary actions */
+  --primary-foreground: 0 0% 100%; /* White text on primary color */
+  --secondary: 340 70% 80%; /* Warm accent color for secondary elements */
+  --secondary-foreground: 0 0% 10%; /* Dark text on secondary color */
+  --muted: 230 20% 95%; /* Soft muted background */
+  --muted-foreground: 230 10% 30%; /* Dark text on muted background */
+  --accent: 50 90% 60%; /* Bright green for accents */
+  --accent-foreground: 0 0% 100%; /* White text on accent color */
+  --destructive: 0 80% 60%; /* Bold red for destructive actions */
+  --destructive-foreground: 0 0% 100%; /* White text on destructive actions */
+  --border: 210 20% 80%; /* Light border with good visibility */
+  --input: 210 10% 90%; /* Light input background with clear contrast */
+  --ring: 200 80% 50%; /* Ring color matching primary */
+  --radius: 0.5rem; /* Consistent rounded corners */
+  --chart-1: 210 80% 50%; /* Open - Bright blue */
+  --chart-2: 40 70% 60%; /* In Progress - Warm orange */
+  --chart-3: 30 80% 55%; /* On Review - Medium yellow */
+  --chart-4: 300 70% 60%; /* Rework - Rich purple */
+  --chart-5: 160 70% 50%; /* Closed - Cool green */
+  --row-hover: 210 15% 85%; /* Light shade for row hover */
+  --header-background: 210 15% 75%; /* Slightly darker shade for header */
+}
+
+
+  .dark {
+    --background: 210 10% 15%; /* Deep background for dark theme */
+    --foreground: 210 10% 90%; /* Light text for readability */
+    --card: 210 10% 20%; /* Dark card background */
+    --card-foreground: 210 10% 90%; /* Light text on cards */
+    --popover: 210 10% 25%; /* Dark popover background */
+    --popover-foreground: 210 10% 85%; /* Light text on popover */
+    --primary: 200 70% 60%; /* Slightly muted but vibrant blue */
+    --primary-foreground: 0 0% 100%; /* White text on primary color */
+    --secondary: 340 70% 50%; /* Deep warm color for secondary elements */
+    --secondary-foreground: 0 0% 100%; /* White text on secondary color */
+    --muted: 230 20% 30%; /* Darker muted background */
+    --muted-foreground: 230 10% 80%; /* Light text on muted background */
+    --accent: 50 80% 50%; /* Bright green for accents */
+    --accent-foreground: 0 0% 100%; /* White text on accent color */
+    --destructive: 0 80% 60%; /* Bold red for destructive actions */
+    --destructive-foreground: 0 0% 100%; /* White text on destructive actions */
+    --border: 210 10% 30%; /* Darker border for subtle separation */
+    --input: 210 10% 20%; /* Dark input background */
+    --ring: 200 70% 60%; /* Ring color matching primary */
+    --radius: 0.5rem; /* Consistent rounded corners */
+    --chart-1: 210 80% 50%; /* Open - Bright blue */
+    --chart-2: 40 70% 60%; /* In Progress - Warm orange */
+    --chart-3: 30 80% 55%; /* On Review - Medium yellow */
+    --chart-4: 300 70% 60%; /* Rework - Rich purple */
+    --chart-5: 160 70% 50%; /* Closed - Cool green */
+    --row-hover: 210 20% 40%; /* More distinct shade for row hover */
+  --header-background: 210 20% 30%; /* Even darker shade for header */
   }
+  
+
+  
+  
+
 }
 @layer base {
   * {
