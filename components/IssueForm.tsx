@@ -26,7 +26,7 @@ type IssueStatusProps = {
   value: string,
 }
 
-export function Check(props: IssueDataProps) {
+export function IssueForm(props: IssueDataProps) {
   const router = useRouter();
   const { toast } = useToast();
   const { id, title, description, status, developerId } = props.issueData;
@@ -97,13 +97,13 @@ export function Check(props: IssueDataProps) {
     setValue('description', description || '');
     setValue('status', status || 'OPEN');
     setValue('developerId', developerId?.toString() || '0');
-  }, [setValue, title, description, status]);
+  }, [setValue, title, description, status, developerId]);
 
   return (
-    <section className='flex justify-center'>
-      <div className='max-w-xl'>
+    <section className='flex justify-center w-full'>
+      <div className='w-full max-w-[600px]'>
       <form
-        className='space-y-6'
+        className='space-y-6 w-full'
         onSubmit={handleSubmit(onSubmit)}
       >
         <Input type="text" placeholder="Title" {...register('title', { required: 'Title is required'})} />
@@ -123,9 +123,9 @@ export function Check(props: IssueDataProps) {
         />
         {errors?.description && <ErrorMessage>{errors.description.message}</ErrorMessage>}
 
-        <div className='flex flex-col sm:flex-row sm:justify-between gap-2'>
-          <div className='flex items-center gap-2'>
-            <label>Status: </label>
+        <div className='grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 '>
+          <div className='form-select sm:w-[220px]'>
+            <label className='min-w-[80px] sm:min-w-fit'>Status: </label>
             <Controller
               name='status'
               control={control}
@@ -147,7 +147,7 @@ export function Check(props: IssueDataProps) {
           </div>
 
 
-          <div className='flex items-center gap-4'>
+          <div className='form-select'>
             <label>Developer: </label>
             <Controller
             name="developerId"

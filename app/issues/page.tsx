@@ -72,13 +72,13 @@ const Issues = () => {
       <Table>
         <TableHeader>
           <TableRow className='text-nowrap uppercase'>
-            <TableHead className='tableHead'>Id</TableHead>
-            <TableHead className='tableHead'>Issue</TableHead>
-            <TableHead className='tableHead'>Description</TableHead>
-            <TableHead className='tableHead'>Assigned To</TableHead>
-            <TableHead className='tableHead'>Status</TableHead>
-            <TableHead className='tableHead'>Created on</TableHead>
-            <TableHead className='tableHead'>updated on</TableHead>
+            <TableHead className='text-center'>Id</TableHead>
+            <TableHead className='text-center'>Issue</TableHead>
+            <TableHead className='text-center'>Description</TableHead>
+            <TableHead className='text-center'>Assigned To</TableHead>
+            <TableHead className='text-center'>Status</TableHead>
+            <TableHead className='text-center'>Created on</TableHead>
+            <TableHead className='text-center'>updated on</TableHead>
           </TableRow>
         </TableHeader>
         
@@ -87,27 +87,27 @@ const Issues = () => {
             <TableRow 
               key={issue.id}
               onClick={() => router.push(`/issues/${issue.id}`)}
-              className='hover:cursor-pointer hover:bg-gray-100'
+              className='hover:cursor-pointer hover:bg-gray-100 text-center'
             >
-              <TableCell >
+              <TableCell className='px-2 ml-4' >
                 {issue.id}
               </TableCell>
               <TableCell >
                 {issue.title}
               </TableCell>
-              <TableCell  width="300px">
+              <TableCell className='w-[250px]'>
                 {formatDesc(issue.description)}
               </TableCell>
-              <TableCell  className='text-nowrap'>
+              <TableCell className='text-nowrap px-2'>
                 {issue.developerName || 'Not Assigned'}
               </TableCell>
-              <TableCell >
+              <TableCell className='text-nowrap px-2'>
                 {issue.status.replace('_', ' ')}
               </TableCell>
-              <TableCell  className='text-nowrap'>
+              <TableCell className='text-nowrap px-2'>
                 {getIssueDate(issue.createdAt)}
               </TableCell>
-              <TableCell  className='text-nowrap'>
+              <TableCell className='text-nowrap px-2'>
                 {getIssueDate(issue.updatedAt)}
               </TableCell>
             </TableRow>

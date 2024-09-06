@@ -1,12 +1,11 @@
 "use client";
 import { issueSchema } from '@/app/validationSchema';
+import { IssueForm } from '@/components/IssueForm';
 import axios from 'axios';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
-import IssueForm from '../new/page';
-import Form from '@/components/Form';
-import { Check } from '@/components/Check';
+// import {IssueForm}  from '@/components/IssueForm';
 
 type IssueDataProps = z.infer<typeof issueSchema>;
 
@@ -47,20 +46,11 @@ const SpecificIssue = () => {
   }, [pathname]);
   
   return (
-    <section>
-      <Check
-        // id={issueData.id}
-        // title={issueData.title}
-        // description={issueData.description}
-        // status={issueData.status}
-        // createdAt={issueData.createdAt}
-        // updatedAt={issueData.updatedAt}
-        // developerId={issueData.developerId}
+      <IssueForm
         issueData={issueData}
         apiUrl={`/api/issues/${pathname.split('/').pop()}`}
         reDirectUrl='/issues'
       />
-    </section>
   )
 }
 
