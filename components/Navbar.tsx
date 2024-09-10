@@ -9,9 +9,7 @@ const Navbar = () => {
   const navLinks = [
     { link: '/', text: 'Dashboard'},
     { link: '/issues', text: 'Issues'},
-  ]
-
-  console.log(pathname)
+  ];
 
   return (
     <nav className="flex items-center border-b mb-5 px-5 h-14">
