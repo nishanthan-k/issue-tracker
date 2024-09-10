@@ -141,7 +141,7 @@
   --chart-4: 300 70% 60%; /* Rework - Rich purple */
   --chart-5: 160 70% 50%; /* Closed - Cool green */
   --row-hover: 210 15% 85%; /* Light shade for row hover */
-  --header-background: 210 15% 75%; /* Slightly darker shade for header */
+  --header-background: 359 0% 54%; /* Slightly darker shade for header */
 }
 
 
@@ -172,7 +172,7 @@
     --chart-4: 300 70% 60%; /* Rework - Rich purple */
     --chart-5: 160 70% 50%; /* Closed - Cool green */
     --row-hover: 210 20% 40%; /* More distinct shade for row hover */
-  --header-background: 210 20% 30%; /* Even darker shade for header */
+    --header-background: 359 0% 54%; /* Even darker shade for header */
   }
   
   :root {
@@ -201,6 +201,7 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+  --navText: 0 0% 100%;
   }
 
   .dark {
@@ -228,6 +229,7 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --navText: 0 0% 100%;
   }
 
 }

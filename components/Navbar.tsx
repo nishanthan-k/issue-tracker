@@ -10,6 +10,9 @@ const Navbar = () => {
     { link: '/', text: 'Dashboard'},
     { link: '/issues', text: 'Issues'},
   ]
+
+  console.log(pathname)
+
   return (
     <nav className="flex items-center border-b mb-5 px-5 h-14">
       <Link href="/" className="flex items-center">
@@ -21,8 +24,8 @@ const Navbar = () => {
           <li key={ele.link}>
             <Link
               href={ele.link}
-              className={`text-zinc-500 hover:text-gray-200 transition-colors ${
-                pathname === ele.link && "text-gray-200"
+              className={`hover:text-navText transition-colors ${
+                pathname === ele.link ? "text-navText" : "text-zinc-500"
               }`}
             >
               {ele.text}
