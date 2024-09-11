@@ -31,3 +31,8 @@ export interface ChartDataProps {
   title: string,
   issues: number,
 }
+
+export interface IssueStatProps {
+  stat: ChartDataProps[],
+  totalIssues: number,
+}

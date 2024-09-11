@@ -1,12 +1,7 @@
-import { ChartDataProps } from '@/app/validationSchema';
+import { ChartDataProps, IssueStatProps } from '@/app/validationSchema';
 import StatisticsCard from './StatisticsCard';
 
-interface StatProps {
-  stat: ChartDataProps[],
-  totalIssues: number,
-}
-
-const StatisticsChart = (props: StatProps) => {
+const StatisticsChart = (props: IssueStatProps) => {
   const { stat,totalIssues } = props;
 
   return (

@@ -1,14 +1,12 @@
 "use client"
-import { TrendingUp } from "lucide-react"
 import { Label, Pie, PieChart } from "recharts"
 
+import { IssueStatProps } from "@/app/validationSchema"
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card"
 import {
   ChartConfig,
@@ -16,48 +14,53 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { useMemo, useState } from "react"
 
 export const description = "A donut chart with status"
 
-const chartData = [
-  { browser: "open", issues: 275, fill: "var(--color-open)" },
-  { browser: "in_progress", issues: 200, fill: "var(--color-in_progress)" },
-  { browser: "on_review", issues: 287, fill: "var(--color-on_review)" },
-  { browser: "on_rework", issues: 173, fill: "var(--color-on_rework)" },
-  { browser: "closed", issues: 190, fill: "var(--color-closed)" },
-]
 
-const chartConfig = {
-  issues: {
-    label: "Issues",
-  },
-  open: {
-    label: "Open",
-    color: "hsl(var(--chart-1))",
-  },
-  in_progress: {
-    label: "In Progress",
-    color: "hsl(var(--chart-2))",
-  },
-  on_review: {
-    label: "On Review",
-    color: "hsl(var(--chart-3))",
-  },
-  on_rework: {
-    label: "On Rework",
-    color: "hsl(var(--chart-4))",
-  },
-  closed: {
-    label: "Closed",
-    color: "hsl(var(--chart-5))",
-  },
-} satisfies ChartConfig
+export function StatusChart(props: IssueStatProps) {
+  const { stat, totalIssues } = props;
+  const totalVisitors = totalIssues;
 
-export function StatusChart() {
-  const totalVisitors = useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.issues, 0)
-  }, []);
+  const chartColor = ["var(--color-open)",
+    "var(--color-in_progress)",
+    "var(--color-on_review)",
+    "var(--color-on_rework)",
+    "var(--color-closed)"];
+
+  const chartData = stat.map((data, i) => {
+    return {
+      browser: data.title.replace(' ', '_').toLowerCase(),
+      issues: data.issues,
+      fill: chartColor[i]
+    }
+  })
+
+  const chartConfig = {
+    issues: {
+      label: "Issues",
+    },
+    open: {
+      label: "Open",
+      color: "hsl(var(--chart-1))",
+    },
+    in_progress: {
+      label: "In Progress",
+      color: "hsl(var(--chart-2))",
+    },
+    on_review: {
+      label: "On Review",
+      color: "hsl(var(--chart-3))",
+    },
+    on_rework: {
+      label: "On Rework",
+      color: "hsl(var(--chart-4))",
+    },
+    closed: {
+      label: "Closed",
+      color: "hsl(var(--chart-5))",
+    },
+  } satisfies ChartConfig
 
   return (
     <Card className="flex flex-col">

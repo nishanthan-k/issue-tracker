@@ -45,7 +45,7 @@ export default function Home() {
           {/* <StatisticsCard /> */}
         </div>
         <div className="w-full sm:w-1/3">
-          <StatusChart />
+          <StatusChart stat={issueStat} totalIssues={totalIssues} />
         </div>
       </section>
     </main>
