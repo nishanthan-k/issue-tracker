@@ -26,3 +26,8 @@ export enum Status {
   IN_PROGRESS,
   CLOSED,
 }
+
+export interface ChartDataProps {
+  title: string,
+  issues: number,
+}

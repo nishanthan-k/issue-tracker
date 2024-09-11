@@ -12,7 +12,7 @@ interface ChartDataProps {
 const StatisticsCard = (props: ChartDataProps) => {
   const { total } = props;
   const { title, issues } = props.data;
-  console.log(props.total)
+
   return (
      <Card className=''>
       <CardHeader>
