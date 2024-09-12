@@ -11,6 +11,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Issue Tracker",
   description: "An efficient way to build bug-free applications",
+  icons: {
+    icon: '/logo.png'
+  }
 };
 
 export default function RootLayout({
