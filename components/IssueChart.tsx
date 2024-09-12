@@ -59,8 +59,6 @@ function IssueChart(props: IssueStatProps) {
     },
   } satisfies ChartConfig
 
-  console.log(chartData)
-
   return (
     <Card>
       <CardHeader>

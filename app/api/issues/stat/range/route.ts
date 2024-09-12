@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
   const reqJson = await req.json();
-  console.log('**********onpost*****');
+
   try {
     const { min, max } = reqJson;
 

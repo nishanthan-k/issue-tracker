@@ -5,6 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ChartDataProps } from "./validationSchema";
 import IssueChart from "@/components/IssueChart";
+import DevStatTable from "@/components/DevStatTable";
 
 export default function Home() {
   const [issueStat, setIssueStat] = useState([] as ChartDataProps[]);
@@ -22,16 +23,16 @@ export default function Home() {
           updatedResp = [
             ...updatedResp,
             {
-              "title": updatedKey,
-              "issues": resp.data.issuesStat[key]
-            }
-          ]
-        })
+              title: updatedKey,
+              issues: resp.data.issuesStat[key],
+            },
+          ];
+        });
 
         setIssueStat(updatedResp);
         setTotalIssues(resp.data.total);
       }
-    }
+    };
 
     fetchStats();
   }, []);
@@ -41,12 +42,17 @@ export default function Home() {
       <section className="flex flex-col sm:flex-row">
         <StatisticsChart stat={issueStat} totalIssues={totalIssues} />
       </section>
-      <section className="flex flex-col sm:flex-row">
-        <div className="w-2/3">
+      <section className="h-[540px] flex flex-col sm:flex-row gap-4">
+        <div className="sm:w-2/3">
           <IssueChart stat={issueStat} totalIssues={totalIssues} />
         </div>
-        <div className="w-full sm:w-1/3">
-          <StatusChart stat={issueStat} totalIssues={totalIssues} />
+        <div className="w-full sm:w-1/3 h-full flex flex-col gap-4">
+          <div className="h-[60%]">
+            <StatusChart stat={issueStat} totalIssues={totalIssues} />
+          </div>
+          <div className="h-[47%]">
+            <DevStatTable />
+          </div>
         </div>
       </section>
     </main>

@@ -45,3 +45,14 @@ export type IssueCountProps = {
   "CLOSED"?: number,
   "date"?: Date,
 }
+
+export interface DeveloperIssuesSummary {
+  id: number;
+  name: string;
+  OPEN: number;
+  IN_PROGRESS: number;
+  ON_REVIEW: number;
+  ON_REWORK: number;
+  CLOSED: number;
+  total: number;
+}
