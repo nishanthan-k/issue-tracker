@@ -12,7 +12,7 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 
 function IssueChart(props: IssueStatProps) {
-  const [timeRange, setTimeRange] = useState("30");
+  const [timeRange, setTimeRange] = useState("7");
   const [chartData, setChartData] = useState<any[]>([]);
 
   useEffect(() => {
