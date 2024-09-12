@@ -43,23 +43,30 @@ export const POST = async (req: NextRequest) => {
       return dates;
     };
 
+    // Define the type for status counts with an optional date property
+    type StatusCounts = {
+      [key: string]: number;
+    };
+
+    type StatusCount = {
+      date: string;
+      counts: StatusCounts;
+    };
+
     // Function to generate the status count grouped by date
     const generateStatusCountByDate = (
       issues: { updatedAt: Date; status: string }[],
       minDate: Date,
       maxDate: Date
     ) => {
-      // Define the type for the result array
-      type StatusCount = { date: string; [key: string]: number };
       const result: StatusCount[] = [];
 
-      // Initialize the date map with dates between minDate and maxDate
       const dates = generateDateArray(minDate, maxDate);
-      const statusMap: { [date: string]: StatusCount } = {};
+      const statusMap: { [date: string]: StatusCounts } = {};
 
       dates.forEach(date => {
-        statusMap[date] = { date }; // Initialize with an empty object for statuses
-        
+        statusMap[date] = {}; // Initialize with an empty object for statuses
+
         // Set all statuses to 0 initially for each date using the statuses array
         statuses.forEach(status => {
           statusMap[date][status] = 0;
@@ -76,7 +83,7 @@ export const POST = async (req: NextRequest) => {
 
       // Create the final result array from the map
       Object.entries(statusMap).forEach(([date, counts]) => {
-        result.push(counts); // Push the counts object which includes the date
+        result.push({ date, counts });
       });
 
       return result;

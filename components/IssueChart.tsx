@@ -1,5 +1,5 @@
 "use client";
-import { IssueStatProps } from '@/app/validationSchema';
+import { IssueCountProps, IssueStatProps } from '@/app/validationSchema';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
@@ -10,6 +10,11 @@ import {
   ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent,
 } from "@/components/ui/chart"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+
+interface StatProps {
+  date: string,
+  counts: IssueCountProps
+}
 
 function IssueChart(props: IssueStatProps) {
   const [timeRange, setTimeRange] = useState("7");
@@ -26,8 +31,13 @@ function IssueChart(props: IssueStatProps) {
       try {
         const response = await axios.post('/api/issues/stat/range', { min, max });
         const fetchedData = response.data;
+        
+        const modifiedData = fetchedData.map(({ date, counts }: StatProps) => ({
+          date,
+          ...counts
+        }));
 
-        setChartData(fetchedData);
+        setChartData(modifiedData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
