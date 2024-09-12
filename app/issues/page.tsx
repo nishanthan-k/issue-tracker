@@ -35,9 +35,14 @@ const Issues = () => {
 
   const getIssueDate = (e: string) => {
     const date = new Date(e);
-
-    return `${date.getDay().toString().padStart(2, '0')}-${date.getMonth().toString().padStart(2, '0')}-${date.getFullYear()}`;
-  }
+  
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+  
+    return `${day}-${month}-${year}`;
+  };
+  
 
   const formatDesc = (a: string, count: number = 10) => {
     let text = a.split(" ").splice(0, count);

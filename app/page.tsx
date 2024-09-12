@@ -4,6 +4,7 @@ import { StatusChart } from "@/components/StatusChart";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ChartDataProps } from "./validationSchema";
+import IssueChart from "@/components/IssueChart";
 
 export default function Home() {
   const [issueStat, setIssueStat] = useState([] as ChartDataProps[]);
@@ -42,7 +43,7 @@ export default function Home() {
       </section>
       <section className="flex flex-col sm:flex-row">
         <div className="w-2/3">
-          {/* <StatisticsCard /> */}
+          <IssueChart stat={issueStat} totalIssues={totalIssues} />
         </div>
         <div className="w-full sm:w-1/3">
           <StatusChart stat={issueStat} totalIssues={totalIssues} />

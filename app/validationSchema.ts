@@ -36,3 +36,12 @@ export interface IssueStatProps {
   stat: ChartDataProps[],
   totalIssues: number,
 }
+
+export type IssueCountProps = {
+  "OPEN"?: number,
+  "IN_PROGRESS"?: number,
+  "ON_REVIEW"?: number,
+  "ON_REWORK"?: number,
+  "CLOSED"?: number,
+  "date"?: Date,
+}
