@@ -33,8 +33,6 @@ export const GET = async () => {
       },
     });
 
-    console.log(issues)
-
     const groupedByDeveloper: DeveloperIssuesSummary[] = issues.reduce<DeveloperIssuesSummary[]>((acc, issue) => {
       if (issue.developer) {
         const { id, name } = issue.developer;

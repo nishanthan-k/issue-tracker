@@ -1,19 +1,18 @@
 "use client";
+import { developerSchema, issueSchema } from "@/app/validationSchema";
+import axios from 'axios';
+import "easymde/dist/easymde.min.css";
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { developerSchema, issueSchema, Status } from "@/app/validationSchema";
-import { Button } from "./ui/button";
-import { Textarea } from "./ui/textarea";
-import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "./ui/select"; // Adjust import according to your setup
-import { useEffect, useState } from 'react';
-import { Input } from './ui/input';
-import SimpleMDE from "react-simplemde-editor";
-import "easymde/dist/easymde.min.css";
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import { useToast } from '@/hooks/use-toast';
-import ToastMessage from './ToastMessage';
 import ErrorMessage from './ErrorMessage';
+import { Button } from "./ui/button";
+import { Input } from './ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import dynamic from "next/dynamic";
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false });
+
 
 type IssueDataProps = {
   issueData: z.infer<typeof issueSchema>,
@@ -28,7 +27,6 @@ type IssueStatusProps = {
 
 export function IssueForm(props: IssueDataProps) {
   const router = useRouter();
-  const { toast } = useToast();
   const { id, title, description, status, developerId } = props.issueData;
   const { apiUrl, reDirectUrl } = props;
   const form = useForm({
