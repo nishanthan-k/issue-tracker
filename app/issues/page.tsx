@@ -66,7 +66,7 @@ const Issues = () => {
   }, []);
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-6 pb-10'>
       <div className='flex gap-4 self-end mr-7'>
         <SearchInput 
           icon={<BiSearch size={16} />}
