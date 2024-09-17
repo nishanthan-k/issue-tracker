@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Bug Board
 
-First, run the development server:
+An full-stack **issue tracker** application with a **dashboard** displaying developer performance and issue status statistics. Integrated **Prisma ORM** with **PostgreSQL** for efficient database management and queries. Implemented **dynamic area charts using Recharts** for interactive data visualization of issue status over time. Created a responsive UI with **Shadcn UI components and Tailwind CSS**, offering seamless user experience across devices.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+## Demo
+
+https://bugboard.vercel.app
+
+
+## Tech Stack
+
+**Framework:** Next JS
+
+**UI**: Tailwind CSS, Shadcn UI, Recharts
+
+**Database:** Postgreql, Prisma
+
+## Features
+
+- Light/dark mode toggle
+- Issue Table
+- Interactive Data Visualization
+- Stat according to issues and developers
+
+
+## API Reference
+
+#### Get all issues
+
+```http
+  GET /api/issues
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Get issue
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```http
+  GET /api/issues/${id}
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | Id of issue to fetch (**Required**)|
 
-## Learn More
+#### Update issue
 
-To learn more about Next.js, take a look at the following resources:
+```http
+  POST /api/issues/${id}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | Id of issue to fetch (**Required**) |
+| `title`      | `string` | Title of the issue (**Optional**) |
+| `description`      | `string` | Description of issue (**Optional**) |
+| `status`      | `string` | Status of issue (**Optional**) |
+| `developerId`      | `string` | DeveloperId of issue (**Optional**) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+#### Add new issue
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```http
+  POST /api/issues/new
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `title`      | `string` | Title of the issue (**Required**) |
+| `description`      | `string` | Description of the issue (**Required** )|
+| `developerId`      | `string` | DeveloperId if it is assigned (**Optional**)|
+
+#### Get issues stat count
+
+```http
+  GET /api/issues/stat
+```
+
+#### Get issues stat count within a range
+
+```http
+  GET /api/issues/stat/range
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `min`      | `string` | Min Date to start fetching the issue (**Required**) |
+| `description`      | `string` | Max Date to start fetching the issue (**Required** )|
+
+#### Get all developers
+
+```http
+  GET /api/developers
+```
+
+#### Get all developers stat
+
+```http
+  GET /api/developers/stat
+```
+## Screenshots
+
+Dashboard
+![Dashboard](https://github.com/nishanthan-k/issue-tracker/blob/master/public/screenshots/Dashboard.png)
+
+Issues
+![Issues](https://github.com/nishanthan-k/issue-tracker/blob/master/public/screenshots/Issues.png)
+
+Add New Issue
+![Add New Issue](https://github.com/nishanthan-k/issue-tracker/blob/master/public/screenshots/NewIssue.png)
+
+Update Issue
+![Update Issue](https://github.com/nishanthan-k/issue-tracker/blob/master/public/screenshots/UpdateIssue.png)
+
+
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`DATABASE_URL` - an Postgresql DB
