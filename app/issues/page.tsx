@@ -1,4 +1,5 @@
 "use client";
+import Spinner from '@/components/Spinner';
 import { Button } from '@/components/ui/button';
 import { SearchInput } from '@/components/ui/searchInput';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -22,6 +23,7 @@ const Issues = () => {
   const router = useRouter();
   const [issues, setIssues] = useState<IssueProps[]>([]);
   const [filteredIssues, setFilteredIssues] = useState<IssueProps[]>(issues);
+  const [loading, setLoading] = useState(true);
 
   const searchIssues = useCallback((input: string) => {
     if (input) {
@@ -54,12 +56,19 @@ const Issues = () => {
   }, [issues]);
 
   useEffect(() => {
+    setLoading(true);
     const fetchIssues = async () => {
-      const resp = await axios.get('/api/issues');
-
-      if (resp.status === 200) {
-        setIssues(resp.data);
-      }
+        try {
+          const resp = await axios.get('/api/issues');
+      
+          if (resp.status === 200) {
+            setIssues(resp.data);
+          }
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setLoading(false);
+        }
     }
 
     fetchIssues();
@@ -81,7 +90,7 @@ const Issues = () => {
 
       <Table>
         <TableHeader>
-          <TableRow className='text-nowrap uppercase'>
+          <TableRow className='text-nowrap uppercase bg-gray-800'>
             <TableHead className='text-center'>Id</TableHead>
             <TableHead className='text-center'>Issue</TableHead>
             <TableHead className='text-center'>Description</TableHead>
@@ -92,41 +101,49 @@ const Issues = () => {
           </TableRow>
         </TableHeader>
 
-        <TableBody>
-          {filteredIssues.length <= 0 ? (
-            <TableRow className='bg-red-500'>
-              <TableCell>No results found!</TableCell>
+        <TableBody className='bg-gray-900'>
+          {loading ? (
+            <TableRow>
+              <TableCell colSpan={7} className='text-center h-20'>
+                <Spinner h={1.3} w={1.3} />
+              </TableCell>
             </TableRow>
           ) : (
-            filteredIssues.map((issue) => (
-              <TableRow 
-                key={issue.id}
-                onClick={() => router.push(`/issues/${issue.id}`)}
-                className='hover:cursor-pointer hover:bg-row-hover text-center'
-              >
-                <TableCell className='px-2 ml-4' >
-                  {issue.id}
-                </TableCell>
-                <TableCell >
-                  {issue.title}
-                </TableCell>
-                <TableCell className='w-[250px]'>
-                  {formatDesc(issue.description)}
-                </TableCell>
-                <TableCell className='text-nowrap px-2'>
-                  {issue.developerName || 'Not Assigned'}
-                </TableCell>
-                <TableCell className='text-nowrap px-2'>
-                  {issue.status.replace('_', ' ')}
-                </TableCell>
-                <TableCell className='text-nowrap px-2'>
-                  {getIssueDate(issue.createdAt)}
-                </TableCell>
-                <TableCell className='text-nowrap px-2'>
-                  {getIssueDate(issue.updatedAt)}
-                </TableCell>
+            filteredIssues.length <= 0 ? (
+              <TableRow className=''>
+                <TableCell colSpan={7} className='text-center text-base h-20'>No issues found!</TableCell>
               </TableRow>
-            ))
+            ) : (
+              filteredIssues.map((issue) => (
+                <TableRow 
+                  key={issue.id}
+                  onClick={() => router.push(`/issues/${issue.id}`)}
+                  className='hover:cursor-pointer hover:bg-row-hover text-center'
+                >
+                  <TableCell className='px-2 ml-4' >
+                    {issue.id}
+                  </TableCell>
+                  <TableCell >
+                    {issue.title}
+                  </TableCell>
+                  <TableCell className='w-[250px]'>
+                    {formatDesc(issue.description)}
+                  </TableCell>
+                  <TableCell className='text-nowrap px-2'>
+                    {issue.developerName || 'Not Assigned'}
+                  </TableCell>
+                  <TableCell className='text-nowrap px-2'>
+                    {issue.status.replace('_', ' ')}
+                  </TableCell>
+                  <TableCell className='text-nowrap px-2'>
+                    {getIssueDate(issue.createdAt)}
+                  </TableCell>
+                  <TableCell className='text-nowrap px-2'>
+                    {getIssueDate(issue.updatedAt)}
+                  </TableCell>
+                </TableRow>
+              ))
+            )
           )}
         </TableBody>
       </Table> 

@@ -11,6 +11,7 @@ import { Button } from "./ui/button";
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import dynamic from "next/dynamic";
+import Spinner from "./Spinner";
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 
 
@@ -91,8 +92,8 @@ export function IssueForm(props: IssueDataProps) {
   };
 
   useEffect(() => {
-    setValue('title', title || '');
-    setValue('description', description || '');
+    setValue('title', title || 'For checking');
+    setValue('description', description || 'None');
     setValue('status', status || 'OPEN');
     setValue('developerId', developerId?.toString() || '0');
   }, [setValue, title, description, status, developerId]);
@@ -175,7 +176,10 @@ export function IssueForm(props: IssueDataProps) {
           </div>
         </div>
 
-        <Button className='w-full' disabled={isSubmitting}>Submit</Button>
+        <Button className='w-full flex gap-2' disabled={isSubmitting}>
+          Submit
+          {isSubmitting && <Spinner color="black" />}
+        </Button>
       </form>
     </div>
     </section>

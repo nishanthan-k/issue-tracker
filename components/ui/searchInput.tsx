@@ -13,7 +13,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ icon,  placeholder="", onChange, ...props }, ref) => {
     
     return (
-      <div className="relative flex items-center gap-2 group rounded-md border border-input bg-input px-2 py-1 text-sm shadow-sm transition-colors focus-within:ring-1 focus-within:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-full">
+      <div className="relative flex items-center gap-2 group rounded-md border border-input bg-input px-2 py-2 text-sm shadow-sm transition-colors focus-within:ring-1 focus-within:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-full">
         {/* {icon && <span className="mr-2">{icon}</span>} */}
         <div className="left-1">
           {icon && icon}
