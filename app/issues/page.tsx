@@ -67,7 +67,7 @@ const Issues = () => {
 
   return (
     <div className='flex flex-col items-center justify-center gap-6 pb-10'>
-      <div className='flex gap-4 self-end md:mr-7'>
+      <div className='flex flex-wrap justify-end gap-4 self-end md:mr-7'>
         <SearchInput 
           icon={<BiSearch size={16} />}
           placeholder='Search the issue'
