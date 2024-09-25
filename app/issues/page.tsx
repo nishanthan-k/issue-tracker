@@ -89,8 +89,8 @@ const Issues = () => {
       </div>
 
       <Table>
-        <TableHeader>
-          <TableRow className='text-nowrap uppercase bg-gray-800'>
+        <TableHeader className='bg-tableHeaderBg'>
+          <TableRow className='text-nowrap uppercase'>
             <TableHead className='text-center'>Id</TableHead>
             <TableHead className='text-center'>Issue</TableHead>
             <TableHead className='text-center'>Description</TableHead>
@@ -101,7 +101,7 @@ const Issues = () => {
           </TableRow>
         </TableHeader>
 
-        <TableBody className='bg-gray-900'>
+        <TableBody className='bg-tableBodyBg'>
           {loading ? (
             <TableRow>
               <TableCell colSpan={7} className='text-center h-20'>

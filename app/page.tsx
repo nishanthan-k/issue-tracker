@@ -38,7 +38,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen space-y-6">
+    <main className="min-h-screen space-y-6 pb-10">
       <section className="flex flex-col sm:flex-row">
         <StatisticsChart stat={issueStat} totalIssues={totalIssues} />
       </section>

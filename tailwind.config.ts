@@ -63,10 +63,8 @@ const config: Config = {
           DEFAULT: 'hsl(var(--nav-text))',
           foreground: 'hsl(var(--nav-text-foreground))',
         },
-        tableHeaderBg: {
-          DEFAULT: 'hsl(var(--header-background))',
-          foreground: 'hsl(var(--nav-text-foreground))',
-        },
+        tableHeaderBg: 'hsl(var(--table-header-bg))',
+        tableBodyBg: 'hsl(var(--table-body-bg))',
       },
     },
   },
