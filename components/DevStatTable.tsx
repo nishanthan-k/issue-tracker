@@ -31,7 +31,7 @@ const DevStatTable = () => {
   return (
     <Card className="p-2 h-full">
       <div className="max-h-full h-full overflow-y-auto overflow-x-hidden">
-        <CardHeader>
+        <CardHeader className='px-0'>
           <div className="w-2/3 md:w-1/2 ml-auto">
             <SearchInput
               icon={<BiSearch size={16} />}
