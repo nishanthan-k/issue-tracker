@@ -92,8 +92,8 @@ export function IssueForm(props: IssueDataProps) {
   };
 
   useEffect(() => {
-    setValue('title', title || 'For checking');
-    setValue('description', description || 'None');
+    setValue('title', title || '');
+    setValue('description', description || '');
     setValue('status', status || 'OPEN');
     setValue('developerId', developerId?.toString() || '0');
   }, [setValue, title, description, status, developerId]);
