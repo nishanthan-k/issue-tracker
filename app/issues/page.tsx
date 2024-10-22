@@ -24,14 +24,21 @@ const Issues = () => {
   const [issues, setIssues] = useState<IssueProps[]>([]);
   const [filteredIssues, setFilteredIssues] = useState<IssueProps[]>(issues);
   const [loading, setLoading] = useState(true);
-
+  const [currentPage, setCurrentPage] = useState(1)
+  const nbPerPage = 10;
+  const lastIndex = currentPage * nbPerPage
+  const startIndex = lastIndex - nbPerPage 
+  const numberOfPages = Math.ceil(issues.length / nbPerPage)
+  
   const searchIssues = useCallback((input: string) => {
     if (input) {
       const filterIssues = issues.filter((issue) => issue.title.includes(input) || issue.description.includes(input) || issue.developerName?.includes(input))
-
-      setFilteredIssues(filterIssues);
+      const records = filterIssues.slice(startIndex, lastIndex)
+      
+      setFilteredIssues(records);
     } else {
-      setFilteredIssues(issues);
+      const records = issues.slice(startIndex, lastIndex)
+      setFilteredIssues(records);
     }
   }, [issues])
 
@@ -52,7 +59,9 @@ const Issues = () => {
   }
 
   useEffect(() => {
-    setFilteredIssues(issues);
+    // setFilteredIssues(issues);
+    const records = issues.slice(startIndex, lastIndex)
+    setFilteredIssues(records);
   }, [issues]);
 
   useEffect(() => {
@@ -73,6 +82,23 @@ const Issues = () => {
 
     fetchIssues();
   }, []);
+
+  function nextPage(){
+    if (currentPage != numberOfPages){
+        setCurrentPage(prev => prev + 1)
+    }
+  }
+
+  function prevPage(){
+      if (currentPage != 1){
+          setCurrentPage(prev => prev - 1)
+      }
+  }
+
+  useEffect(() => {
+    const records = issues.slice(startIndex, lastIndex)
+    setFilteredIssues(records);
+  }, [currentPage])
 
   return (
     <div className='flex flex-col items-center justify-center gap-6 pb-10'>
@@ -147,8 +173,22 @@ const Issues = () => {
           )}
         </TableBody>
       </Table> 
+
+      <div className='w-full flex flex-row items-center p-5'>
+                <div className='flex flex-row items-center gap-4'>
+                    <span className='cursor-pointer font-semibold' onClick={() => prevPage()}>prev</span>
+                    <div className='flex flex-row items-center'>
+                        <span>{currentPage}</span>
+                        <span>/</span>
+                        <span>{numberOfPages}</span>
+                    </div>
+                    <span className='cursor-pointer font-semibold' onClick={() => nextPage()}>next</span>
+                </div>
+            </div>
     </div>
   )
 }
+
+
 
 export default Issues;
