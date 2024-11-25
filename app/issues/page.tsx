@@ -40,6 +40,7 @@ const Issues = () => {
       const records = issues.slice(startIndex, lastIndex)
       setFilteredIssues(records);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [issues])
 
   const getIssueDate = (e: string) => {
@@ -62,6 +63,7 @@ const Issues = () => {
     // setFilteredIssues(issues);
     const records = issues.slice(startIndex, lastIndex)
     setFilteredIssues(records);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [issues]);
 
   useEffect(() => {
@@ -98,6 +100,7 @@ const Issues = () => {
   useEffect(() => {
     const records = issues.slice(startIndex, lastIndex)
     setFilteredIssues(records);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage])
 
   return (
